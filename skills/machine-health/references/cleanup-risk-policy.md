@@ -20,6 +20,13 @@ Only rebuildable/generated data:
 - JetBrains, Spotify, VS Code update, Postman update, node-gyp, TypeScript, pip, Homebrew caches
 - Git prunable worktree metadata via `git worktree prune`
 
+## Configuration
+
+Targets are machine-specific and resolved from `~/.config/machine-health/config.sh`
+(generate with `scripts/configure.sh`). **Nothing is protected from cleanup by default** —
+list repos in `MH_PROTECT_REPOS` (by basename or full path) to shield a critical local
+checkout; protected repos are skipped by `clean_safe.sh` and tagged `[PROTECTED]` in the audit.
+
 ## Approval Required
 
 Ask before deleting:

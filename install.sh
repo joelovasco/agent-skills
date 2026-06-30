@@ -79,4 +79,12 @@ for name in "${NAMES[@]}"; do
   done
 done
 
+# Setup hints: a skill with a configure.sh wants a one-time customization pass.
+if [ "$UNINSTALL" -eq 0 ]; then
+  for name in "${NAMES[@]}"; do
+    cfg="$SKILLS_SRC/$name/scripts/configure.sh"
+    [ -f "$cfg" ] && echo "SETUP  $name: run 'skills/$name/scripts/configure.sh --print' to customize for this machine"
+  done
+fi
+
 [ "$DRY_RUN" -eq 1 ] && echo "(dry-run — nothing changed)" || true

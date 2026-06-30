@@ -8,6 +8,18 @@ description: Use when checking or improving local macOS disk space, memory press
 Source of truth for Claude and Codex machine-hygiene work. All paths below are relative to
 this skill folder, so it works through whichever install symlink the tool discovered it by.
 
+## First-run setup
+
+This skill ships with **no machine-specific paths**. On a new machine, generate a local
+config so it knows your repos / worktree dirs / caches:
+
+1. `scripts/configure.sh --print` — discover and review the proposed config (changes nothing).
+2. `scripts/configure.sh --apply` — write it to `~/.config/machine-health/config.sh`.
+
+Re-run any time your repos change. Without a config, the scripts fall back to auto-discovery
+under common dev roots. **Nothing is protected from cleanup by default** — add repos to
+`MH_PROTECT_REPOS` in the config to shield them.
+
 ## Workflow
 
 1. Read `references/cleanup-risk-policy.md` before any cleanup.
