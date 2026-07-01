@@ -6,6 +6,9 @@ the skill they touch.
 
 ## [Unreleased]
 
+### Changed
+- Generalized repo docs, plugin metadata, and machine-health worktree discovery wording.
+
 ### Added
 - Repo skeleton: `install.sh` (per-skill symlink installer), `skills/`, `harness/`,
   `templates/skill-template/`, Claude + Codex install adapters.

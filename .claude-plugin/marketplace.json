@@ -1,17 +1,17 @@
 {
   "name": "agent-skills",
-  "description": "Personal standalone skills for Claude Code and Codex.",
+  "description": "Standalone agent skills for Claude Code, Codex, and compatible skill directories.",
   "owner": {
-    "name": "Joe LoVasco"
+    "name": "agent-skills contributors"
   },
   "plugins": [
     {
       "name": "agent-skills",
-      "description": "Personal standalone skills for Claude Code and Codex.",
+      "description": "Standalone agent skills for Claude Code, Codex, and compatible skill directories.",
       "version": "0.1.0",
       "source": "./",
       "author": {
-        "name": "Joe LoVasco"
+        "name": "agent-skills contributors"
       }
     }
   ]

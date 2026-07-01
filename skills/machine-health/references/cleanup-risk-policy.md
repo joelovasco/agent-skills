@@ -37,7 +37,7 @@ Ask before deleting:
 - Docker `Docker.raw`, images, volumes, or container data
 - Claude VM bundles or Claude app-support data
 - Browser profiles, app support folders, mail/messages/photos, iCloud data
-- Any file that looks personal: documents, photos, videos, PDFs, HARs, archives with unknown contents
+- Any user-owned file: documents, photos, videos, PDFs, HARs, archives with unknown contents
 
 ## Process Handling
 

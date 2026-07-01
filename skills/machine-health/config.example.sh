@@ -9,7 +9,7 @@
 MH_SCAN_ROOTS=()
 
 # Containers that hold standalone worktrees (tooling-managed worktree homes).
-# Empty => default (~/.config/superpowers/worktrees if present).
+# Empty => auto-discover common worktree container names when present.
 MH_WORKTREE_DIRS=()
 
 # Explicit repos to audit/prune. Empty => auto-discover under MH_SCAN_ROOTS.

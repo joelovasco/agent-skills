@@ -1,12 +1,10 @@
 {
   "name": "agent-skills",
-  "description": "Personal standalone skills for Claude Code and Codex (machine-health, PR review, local dev, and more).",
+  "description": "Standalone agent skills for Claude Code, Codex, and compatible skill directories.",
   "version": "0.1.0",
   "author": {
-    "name": "Joe LoVasco"
+    "name": "agent-skills contributors"
   },
-  "homepage": "https://github.com/joelovasco/agent-skills",
-  "repository": "https://github.com/joelovasco/agent-skills",
   "license": "MIT",
   "keywords": ["skills", "claude-code", "codex", "tooling"]
 }
