@@ -43,11 +43,11 @@ under common dev roots. **Nothing is protected from cleanup by default** — add
 ## Operating Rules
 
 - Prefer reports over guesses.
-- Preserve dirty worktrees and personal files.
+- Preserve dirty worktrees and user-owned files.
 - Treat destructive cleanup as a confirmation boundary; never delete approval-required items
   automatically (see `references/cleanup-risk-policy.md`).
 - Use `git worktree remove` for registered worktrees; do not `rm -rf` worktrees blindly.
-- Move personal-review candidates to a dedicated Trash folder before permanent deletion.
+- Move user-review candidates to a dedicated Trash folder before permanent deletion.
 - Treat Docker `Docker.raw`, Claude VM bundles, browser profiles, and app-support data as
   approval-required.
 - Stop stale dev/test/browser-automation processes only when the process identity is clear.

@@ -10,11 +10,11 @@ each skill into the dirs your tools read (`~/.codex/skills`, `~/.claude/skills`,
 ## Installation
 1. **Clone:**
    ```bash
-   git clone https://github.com/joelovasco/agent-skills.git ~/Documents/agent-skills
+   git clone <repo-url> agent-skills
    ```
 2. **Install (symlink) the skills:**
    ```bash
-   cd ~/Documents/agent-skills
+   cd agent-skills
    ./install.sh --dry-run   # preview
    ./install.sh             # all skills — or: ./install.sh <skill-name>
    ```
@@ -22,7 +22,7 @@ each skill into the dirs your tools read (`~/.codex/skills`, `~/.claude/skills`,
 
 ## Updating
 ```bash
-cd ~/Documents/agent-skills && git pull
+cd agent-skills && git pull
 ```
 Symlinks point at the working tree, so a pull is enough. Re-run `./install.sh` only after
 **adding** a new skill.

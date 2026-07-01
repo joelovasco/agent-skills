@@ -19,7 +19,7 @@ MH_SCAN_ROOTS_DEFAULT=(
   "$HOME/dev" "$HOME/work" "$HOME/repos" "$HOME/git"
 )
 MH_WORKTREE_DIRS_DEFAULT=(
-  "$HOME/.config/superpowers/worktrees"
+  "$HOME/.config/worktrees" "$HOME/.worktrees" "$HOME/worktrees"
 )
 # Universal, rebuildable dev/tool caches.
 MH_CACHES_DEFAULT=(
@@ -57,7 +57,16 @@ fi
 
 # ---- Apply defaults where the user left things unset ----
 [ "${#MH_SCAN_ROOTS[@]}" -gt 0 ]   || MH_SCAN_ROOTS=("${MH_SCAN_ROOTS_DEFAULT[@]}")
-[ "${#MH_WORKTREE_DIRS[@]}" -gt 0 ] || MH_WORKTREE_DIRS=("${MH_WORKTREE_DIRS_DEFAULT[@]}")
+if [ "${#MH_WORKTREE_DIRS[@]}" -eq 0 ]; then
+  MH_WORKTREE_DIRS=("${MH_WORKTREE_DIRS_DEFAULT[@]}")
+  if [ -d "$HOME/.config" ]; then
+    while IFS= read -r p; do
+      [ -n "$p" ] && MH_WORKTREE_DIRS+=("$p")
+    done <<EOF
+$(find "$HOME/.config" -mindepth 2 -maxdepth 3 -type d -name worktrees -print 2>/dev/null)
+EOF
+  fi
+fi
 MH_CACHES=("${MH_CACHES_DEFAULT[@]}")
 MH_CACHES+=( ${MH_EXTRA_CACHES[@]+"${MH_EXTRA_CACHES[@]}"} )
 MH_STORAGE=("${MH_STORAGE_DEFAULT[@]}")

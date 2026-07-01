@@ -25,7 +25,12 @@ esac
 
 # Discover from the DEFAULT candidate roots (not from any existing config).
 scan_roots="$(mh_existing "${MH_SCAN_ROOTS_DEFAULT[@]}")"
-wt_dirs="$(mh_existing "${MH_WORKTREE_DIRS_DEFAULT[@]}")"
+wt_dirs="$(
+  mh_existing "${MH_WORKTREE_DIRS_DEFAULT[@]}"
+  if [ -d "$HOME/.config" ]; then
+    find "$HOME/.config" -mindepth 2 -maxdepth 3 -type d -name worktrees -print 2>/dev/null
+  fi
+)"
 caches_present="$(mh_existing "${MH_CACHES_DEFAULT[@]}")"
 
 # Re-point discovery at the existing roots, then enumerate repos.

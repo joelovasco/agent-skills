@@ -79,5 +79,5 @@ section "Notes"
 cat <<'NOTES'
 - This report is read-only.
 - Run clean_safe.sh --dry-run before any cleanup.
-- Docker.raw, VM bundles, browser profiles, dirty worktrees, and personal Downloads files require explicit approval.
+- Docker.raw, VM bundles, browser profiles, dirty worktrees, and user-owned Downloads files require explicit approval.
 NOTES

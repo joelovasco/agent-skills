@@ -1,15 +1,14 @@
 # agent-skills
 
-Personal, **standalone** skills for Claude Code and Codex — the ones we built by hand that
-previously lived untracked across `~/.claude/skills`, `~/.codex/skills`, and `~/.agents/skills`.
+A tool-neutral collection of **standalone** agent skills for Claude Code, Codex, and
+compatible skill-discovery directories.
 
-This repo borrows the *structure* of [obra/Superpowers](https://github.com/obra/superpowers)
-(per-skill folder, one tool-neutral `SKILL.md`, symlink-based install) but **not** its
-coupling: Superpowers is one interdependent workflow shipped as a single plugin; these are
-independent utilities, each installed on its own.
+Each skill lives in its own folder with a tool-neutral `SKILL.md` and optional local assets
+such as scripts, references, examples, or templates. Skills are installed independently, so a
+machine can use one skill without taking the rest of the repo.
 
-> The 14 `thread-*` skills are **not** here — they're owned by the `thread-tracker` repo.
-> Vendored third-party skills (`superpowers`, Codex `.system/*`) are also out of scope.
+Skills owned by another repository, vendored third-party skills, and generated tool caches are
+out of scope.
 
 ## Layout
 
@@ -28,8 +27,8 @@ Paths inside a skill are **relative to the skill folder**; secrets/state are nev
 ## Install
 
 ```bash
-git clone https://github.com/joelovasco/agent-skills.git ~/Documents/agent-skills
-cd ~/Documents/agent-skills
+git clone <repo-url> agent-skills
+cd agent-skills
 
 ./install.sh --dry-run        # preview
 ./install.sh                  # symlink every skill into the tools' discovery dirs
@@ -46,4 +45,4 @@ symlinks keep pointing at the working tree, so there's nothing to re-run unless 
 |-------|--------------|
 | `machine-health` | Report + safely clean local macOS disk / memory / caches / worktrees / Docker. |
 
-_(more migrated per the plan in `planning-docs/agent-skills/`)_
+More skills can be added under `skills/<name>/`.
