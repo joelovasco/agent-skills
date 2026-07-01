@@ -27,8 +27,8 @@ Paths inside a skill are **relative to the skill folder**; secrets/state are nev
 ## Install
 
 ```bash
-git clone <repo-url> agent-skills
-cd agent-skills
+git clone https://github.com/joelovasco/agent-skills.git ~/Documents/agent-skills
+cd ~/Documents/agent-skills
 
 ./install.sh --dry-run        # preview
 ./install.sh                  # symlink every skill into the tools' discovery dirs
