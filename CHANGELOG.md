@@ -8,6 +8,8 @@ the skill they touch.
 
 ### Changed
 - Generalized repo docs, plugin metadata, and machine-health worktree discovery wording.
+- Added public-repo guardrails: CI hygiene checks, CODEOWNERS, contribution guidance,
+  security policy, PR template, and Dependabot configuration for GitHub Actions.
 
 ### Added
 - Repo skeleton: `install.sh` (per-skill symlink installer), `skills/`, `harness/`,

@@ -46,3 +46,9 @@ symlinks keep pointing at the working tree, so there's nothing to re-run unless 
 | `machine-health` | Report + safely clean local macOS disk / memory / caches / worktrees / Docker. |
 
 More skills can be added under `skills/<name>/`.
+
+## Contributing and Security
+
+This repository is public. Before opening a pull request, read
+[`CONTRIBUTING.md`](./CONTRIBUTING.md) and [`SECURITY.md`](./SECURITY.md). Do not commit
+secrets, private URLs, internal logs, generated state, or machine-local config.
