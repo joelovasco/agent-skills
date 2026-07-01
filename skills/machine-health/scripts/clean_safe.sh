@@ -80,6 +80,8 @@ prune_worktrees() {
 printf '# Machine Safe Cleanup (%s)\n' "$MODE"
 date
 printf '\n'
+mh_config_report
+printf '\n'
 
 printf '## Package and Tool Caches\n\n'
 for path in ${MH_CACHES[@]+"${MH_CACHES[@]}"}; do

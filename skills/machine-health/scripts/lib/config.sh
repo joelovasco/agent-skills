@@ -48,9 +48,11 @@ MH_EXTRA_CACHES=()     # appended to the universal baseline
 MH_PROTECT_REPOS=()    # never-clean repos (by basename or full path). EMPTY = nothing protected.
 
 # ---- Load user config if present ----
+MH_CONFIG_LOADED=0
 if [ -f "$MH_CONFIG_PATH" ]; then
   # shellcheck disable=SC1090
   . "$MH_CONFIG_PATH"
+  MH_CONFIG_LOADED=1
 fi
 
 # ---- Apply defaults where the user left things unset ----
@@ -102,4 +104,78 @@ mh_is_protected() {
     [ "$p" = "$base" ] || [ "$p" = "$path" ] && return 0
   done
   return 1
+}
+
+# Count of in-scope repos (explicit MH_REPOS or auto-discovered).
+mh_repo_count() { mh_repos | grep -c . || true; }
+
+# One-line discovery SUMMARY (counts + provenance). Cheap; what a run leads with by default,
+# so the operator can decide whether to expand the full list before anything proceeds.
+mh_config_summary() {
+  local count protect_count src
+  count="$(mh_repo_count)"
+  protect_count="${#MH_PROTECT_REPOS[@]}"
+  if [ "$MH_CONFIG_LOADED" -eq 1 ]; then
+    src="config: $MH_CONFIG_PATH"
+  else
+    src="auto-discovery, no config file"
+  fi
+  echo "## Configuration"
+  echo
+  echo "$count directories discovered, $protect_count protected  [$src]"
+}
+
+# Full DETAIL: provenance + the discovered repo list + protection status. Shown on demand
+# (MH_SHOW_REPOS=1) so an auto-discovery run can be inspected in full when asked.
+mh_config_banner() {
+  local repos count protect_count
+  echo "## Configuration"
+  echo
+  if [ "$MH_CONFIG_LOADED" -eq 1 ]; then
+    echo "Config source: $MH_CONFIG_PATH"
+  else
+    echo "Config source: none — built-in AUTO-DISCOVERY (run configure.sh --apply to pin)"
+  fi
+
+  echo
+  if [ "${#MH_REPOS[@]}" -gt 0 ]; then
+    echo "Repos: explicit MH_REPOS list"
+  else
+    echo "Repos: auto-discovered under: $(printf '%s ' "${MH_SCAN_ROOTS[@]}")"
+  fi
+  repos="$(mh_repos)"
+  count="$(printf '%s\n' "$repos" | grep -c . || true)"
+  echo "Discovered/in-scope repos ($count):"
+  if [ "$count" -eq 0 ]; then
+    echo "  (none found — check MH_SCAN_ROOTS or set MH_REPOS in the config)"
+  else
+    printf '%s\n' "$repos" | while IFS= read -r r; do
+      [ -n "$r" ] || continue
+      if mh_is_protected "$r"; then
+        printf '  - %s  [PROTECTED]\n' "$r"
+      else
+        printf '  - %s\n' "$r"
+      fi
+    done
+  fi
+
+  echo
+  protect_count="${#MH_PROTECT_REPOS[@]}"
+  if [ "$protect_count" -eq 0 ]; then
+    echo "Protected repos: NONE — nothing is protected from cleanup."
+    echo "  Every in-scope repo above is eligible. Set MH_PROTECT_REPOS in the config to shield one."
+  else
+    echo "Protected repos ($protect_count) — skipped by cleanup, tagged [PROTECTED] in the audit:"
+    printf '%s\n' ${MH_PROTECT_REPOS[@]+"${MH_PROTECT_REPOS[@]}"} | sed 's/^/  - /'
+  fi
+}
+
+# Dispatcher every workflow script calls: one-line summary by default, full list when asked.
+mh_config_report() {
+  if [ "${MH_SHOW_REPOS:-0}" = "1" ]; then
+    mh_config_banner
+  else
+    mh_config_summary
+    echo "  (run with MH_SHOW_REPOS=1 to list every discovered/protected repo)"
+  fi
 }

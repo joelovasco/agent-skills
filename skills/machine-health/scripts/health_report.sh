@@ -24,6 +24,8 @@ top_du() {
 
 printf '# Machine Health Report\n'
 date
+printf '\n'
+mh_config_report
 
 section "Disk"
 run df -h "$HOME"

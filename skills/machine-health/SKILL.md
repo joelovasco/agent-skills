@@ -23,12 +23,21 @@ under common dev roots. **Nothing is protected from cleanup by default** — add
 ## Workflow
 
 1. Read `references/cleanup-risk-policy.md` before any cleanup.
-2. Run `scripts/health_report.sh` first. Treat the report as evidence.
-3. If worktrees are involved, run `scripts/worktree_audit.sh`.
-4. For safe generated clutter only, run `scripts/clean_safe.sh --dry-run` first.
-5. Run `scripts/clean_safe.sh --apply` only after reviewing the dry run and respecting
+2. **Discovery pause.** Every script leads with a one-line discovery summary, e.g.
+   `43 directories discovered, 0 protected  [auto-discovery, no config file]`. Surface that
+   count to the user, then present an **arrow-navigable selection** (the host's native
+   choice picker — in Claude Code that is the `AskUserQuestion` checkbox list, not a prose
+   yes/no) with the options:
+     - **View full list** — expand all discovered + protected repos (re-run with
+       `MH_SHOW_REPOS=1`, which prints the full banner) before proceeding.
+     - **Continue** — proceed to the disk/memory/cleanup evidence without listing.
+   Wait for the selection. Never silently operate on an unseen repo set.
+3. Run `scripts/health_report.sh` first. Treat the report as evidence.
+4. If worktrees are involved, run `scripts/worktree_audit.sh`.
+5. For safe generated clutter only, run `scripts/clean_safe.sh --dry-run` first.
+6. Run `scripts/clean_safe.sh --apply` only after reviewing the dry run and respecting
    approval boundaries.
-6. Verify with `df -h "$HOME"`, `tmutil listlocalsnapshots /`, and — for memory work —
+7. Verify with `df -h "$HOME"`, `tmutil listlocalsnapshots /`, and — for memory work —
    `memory_pressure`.
 
 ## Operating Rules

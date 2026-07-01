@@ -8,6 +8,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
 printf '# Worktree Audit\n'
 date
 printf '\n'
+mh_config_report
+printf '\n'
 
 audit_worktrees_of() {
   local repo="$1"
