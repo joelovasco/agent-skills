@@ -44,6 +44,7 @@ symlinks keep pointing at the working tree, so there's nothing to re-run unless 
 | Skill | What it does |
 |-------|--------------|
 | `machine-health` | Report + safely clean local macOS disk / memory / caches / worktrees / Docker. |
+| `pr-review-draft` | Draft evidence-backed GitHub pull request reviews without posting them by default. |
 
 More skills can be added under `skills/<name>/`.
 

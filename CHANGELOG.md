@@ -12,6 +12,7 @@ the skill they touch.
   security policy, PR template, and Dependabot configuration for GitHub Actions.
 
 ### Added
+- Added `pr-review-draft`, a prompt-first, OS-agnostic skill for producing PR review drafts.
 - Repo skeleton: `install.sh` (per-skill symlink installer), `skills/`, `harness/`,
   `templates/skill-template/`, Claude + Codex install adapters.
 
