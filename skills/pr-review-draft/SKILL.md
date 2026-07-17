@@ -5,54 +5,59 @@ description: Use when drafting or preparing a GitHub pull request review, review
 
 # PR Review Draft
 
-Produce evidence-backed pull request review text for a human to inspect before posting. This
-is not a GitHub draft pull request.
+Produce evidence-backed PR review text for a human to inspect before posting; this is not a
+GitHub draft pull request.
 
-Prompt-first and OS-agnostic: do not rely on bundled scripts, local automation directories,
-or a specific shell environment.
+Prompt-first and OS-agnostic: no bundled scripts, local automation directories, or required
+shell environment.
 
 ## Required Flow
 
 1. Identify the review target: PR URL, `owner/repo#number`, branch, pasted diff, or files.
-2. Gather current evidence from the best source in the host environment.
-3. If live PR access is unavailable and no diff was provided, ask for the missing context.
-4. Inspect the changed code, relevant nearby implementation/tests/config, and any repo
-   guidance files that apply to the changed paths, such as `AGENTS.md`, `CLAUDE.md`,
-   `CONTRIBUTING.md`, or PR templates.
+2. Gather current evidence from the best host source.
+3. If live PR access is unavailable and no diff was provided, ask for context.
+4. Inspect changed code, nearby implementation/tests/config, and applicable repo guidance
+   such as `AGENTS.md`, `CLAUDE.md`, `CONTRIBUTING.md`, or PR templates.
 5. Draft findings first, ordered by severity, with exact file/line references when available.
-6. Include open questions or assumptions only when they affect review confidence.
+6. Include open questions only when they affect review confidence.
 7. If there are no findings, say so and note real verification gaps.
 8. Do not post, approve, request changes, or write files unless explicitly asked.
 
 ## Evidence Sources
 
-Prefer the most direct current source:
+Prefer direct current sources:
 
 - GitHub MCP, app, connector, or API tools.
+- Built-in review tools or other PR-review skills.
 - A user-supplied PR URL or `owner/repo#number`.
 - A local checkout or branch when asked to review local work.
 - A pasted diff, patch, or file set.
 
-Use memory or prior conversation only as a pointer. Stale drafts, old diffs, and remembered
-PR state are not authoritative.
+Use memory only as a pointer. Stale drafts, old diffs, and remembered PR state are not
+authoritative.
+
+## Host Review Tools
+
+If the host has a built-in review tool or another PR-review skill, use its output as evidence.
+Do not let it replace this skill's format. Reconcile host output into `Findings`,
+`Open Questions`, and `Notes`.
 
 ## Draft Format
 
-Always use these exact Markdown section headings, even for stdout or chat output:
+Always use these exact headings, even for stdout or chat:
 
 ```markdown
 Findings
-- [severity] `path/to/file.ext:line` Clear description of the bug or risk, why it matters, and the smallest useful fix direction.
+- [severity] `path/to/file.ext:line` Bug/risk, why it matters, and smallest useful fix direction.
 
 Open Questions
-- Only include questions that materially affect whether the review should block.
+- Only questions that materially affect whether the review should block.
 
 Notes
-- Mention test gaps, verification limits, or "No findings" when applicable.
+- Test gaps, verification limits, PR status/checks, approve/no-approve guidance, or "No findings".
 ```
 
-Put PR status, checks, test gaps, and approve/no-approve guidance under `Notes`. Do not
-append unheaded status or approval text after the template. Keep the draft concise.
+Do not append unheaded status or approval text after the template. Keep the draft concise.
 
 ## No-Findings Case
 
@@ -68,18 +73,18 @@ Verification gaps: {only real gaps, or "None beyond the reviewed diff."}
 
 - Read-only by default.
 - Do not submit reviews, approvals, comments, or requests for changes unless asked.
-- Before posting or approving after time has passed, re-check the current PR head and diff.
-- Do not invent line numbers. If line anchors are unavailable, cite the file/function instead.
+- Before posting or approving later, re-check the current PR head and diff.
+- Do not invent line numbers; cite file/function if line anchors are unavailable.
 - Do not rely on shell commands as part of the skill contract.
 - Do not use OS-specific paths or assumptions.
-- Do not create artifacts unless the user asks for a file.
+- Do not create artifacts unless asked.
 - Keep wording direct and friendly, especially for draft comments.
 
 ## Trigger Phrases
 
 - "draft a PR review"
-- "review this PR"
-- `review {url}`
+- "review this PR with pr-review-draft"
+- `use pr-review-draft to review {url}`
 - "create a review draft"
 - "friendly review comment"
 - "find issues in this diff"
