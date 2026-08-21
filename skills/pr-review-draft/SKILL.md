@@ -54,8 +54,18 @@ Open Questions
 - Only questions that materially affect whether the review should block.
 
 Notes
-- Test gaps, verification limits, PR status/checks, approve/no-approve guidance, or "No findings".
+- Reviewed {evidence source} at {head SHA, or "no SHA available"}.
+- Test gaps, verification limits, PR status/checks, an approve / do-not-approve
+  recommendation for the human to act on, or "No findings".
 ```
+
+Severity is one of `blocker`, `major`, `minor`, or `nit`. Use no other labels, and order
+findings from `blocker` down.
+
+The first `Notes` line is required. Name the source you actually read (live PR, local
+branch, pasted diff, host review tool) and the head SHA it was at, so the reader can judge
+how current the draft is. If you could not determine the head, say so explicitly rather
+than omitting the line.
 
 Do not append unheaded status or approval text after the template. Keep the draft concise.
 
@@ -66,6 +76,8 @@ If no issues are found, say:
 ```markdown
 No findings.
 
+Reviewed {evidence source} at {head SHA, or "no SHA available"}.
+
 Verification gaps: {only real gaps, or "None beyond the reviewed diff."}
 ```
 
@@ -73,6 +85,8 @@ Verification gaps: {only real gaps, or "None beyond the reviewed diff."}
 
 - Read-only by default.
 - Do not submit reviews, approvals, comments, or requests for changes unless asked.
+- An approve / do-not-approve recommendation in `Notes` is guidance for the human, not an
+  action. Never act on your own recommendation.
 - Before posting or approving later, re-check the current PR head and diff.
 - Do not invent line numbers; cite file/function if line anchors are unavailable.
 - Do not rely on shell commands as part of the skill contract.
@@ -88,4 +102,11 @@ Verification gaps: {only real gaps, or "None beyond the reviewed diff."}
 - "create a review draft"
 - "friendly review comment"
 - "find issues in this diff"
-- "approve?"
+- "should I approve this PR?" / "approve this PR?"
+
+## Not a Trigger
+
+Do not invoke on a bare approval question ("approve?", "lgtm?", "ship it?") unless a PR,
+diff, or branch is already the active subject. Approval language about designs, plans,
+budgets, tickets, or deploys is out of scope. When the subject is ambiguous, ask what
+should be reviewed instead of producing a draft.
