@@ -1,0 +1,18 @@
+{
+  "name": "agent-skills",
+  "description": "Standalone agent skills for Claude Code, Codex, and compatible skill directories.",
+  "owner": {
+    "name": "agent-skills contributors"
+  },
+  "plugins": [
+    {
+      "name": "agent-skills",
+      "description": "Standalone agent skills for Claude Code, Codex, and compatible skill directories.",
+      "version": "0.1.0",
+      "source": "./",
+      "author": {
+        "name": "agent-skills contributors"
+      }
+    }
+  ]
+}

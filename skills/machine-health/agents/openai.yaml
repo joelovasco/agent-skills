@@ -1,0 +1,4 @@
+interface:
+  display_name: "Machine Health"
+  short_description: "Check disk, memory, caches, and worktrees."
+  default_prompt: "Use $machine-health to check local disk, memory, caches, worktrees, and safe cleanup options."

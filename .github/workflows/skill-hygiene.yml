@@ -1,0 +1,67 @@
+name: Skill hygiene
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Skill hygiene
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Check shell syntax
+        run: |
+          set -euo pipefail
+          find . -path ./.git -prune -o -name '*.sh' -print0 | xargs -0 -r bash -n
+
+      - name: Validate skill folders
+        run: |
+          set -euo pipefail
+          found=0
+          for skill in skills/*; do
+            [ -d "$skill" ] || continue
+            found=1
+            test -f "$skill/SKILL.md"
+            grep -Eq '^name: [a-z0-9-]+$' "$skill/SKILL.md"
+            grep -Eq '^description: .+' "$skill/SKILL.md"
+            if [ -f "$skill/README.md" ]; then
+              echo "Skill folders should use SKILL.md, not README.md: $skill/README.md" >&2
+              exit 1
+            fi
+          done
+          test "$found" -eq 1
+
+      - name: Run installer dry run
+        run: |
+          set -euo pipefail
+          export HOME="$RUNNER_TEMP/home"
+          mkdir -p "$HOME/.claude" "$HOME/.codex" "$HOME/.agents"
+          ./install.sh --dry-run
+
+      - name: Run machine-health config smoke test
+        run: |
+          set -euo pipefail
+          export HOME="$RUNNER_TEMP/home"
+          mkdir -p "$HOME"
+          bash skills/machine-health/scripts/configure.sh --print >/tmp/machine-health-config.txt
+          grep -q 'MH_PROTECT_REPOS=()' /tmp/machine-health-config.txt
+
+      - name: Scan for public-repo sensitive placeholders
+        run: |
+          set -euo pipefail
+          if grep -RInE '(<repo-url>|/Users/jlovasco|~/.config/superpowers|\.codex/automations|EBSCO|Jenkins|search-ui)' \
+            --exclude-dir=.git \
+            --exclude=skill-hygiene.yml \
+            .; then
+            echo "Found internal, placeholder, or machine-local text that should not ship publicly." >&2
+            exit 1
+          fi

@@ -1,0 +1,13 @@
+.DS_Store
+__pycache__/
+*.pyc
+*.log
+
+# Vendored harness: secrets + machine state NEVER go in git (D-8).
+# Commit code + *.example configs only.
+harness/**/local.secrets.toml
+harness/**/local.config.toml
+harness/**/logs/
+harness/**/state/
+harness/**/shortlists/
+harness/**/last-codex-cli-message.txt

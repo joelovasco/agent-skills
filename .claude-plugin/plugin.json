@@ -1,0 +1,10 @@
+{
+  "name": "agent-skills",
+  "description": "Standalone agent skills for Claude Code, Codex, and compatible skill directories.",
+  "version": "0.1.0",
+  "author": {
+    "name": "agent-skills contributors"
+  },
+  "license": "MIT",
+  "keywords": ["skills", "claude-code", "codex", "tooling"]
+}
